@@ -1,0 +1,56 @@
+.navbar {
+	width: 200px;
+	background-color: #ffffff;
+	padding: 20px;
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: center;
+}
+
+.navbar ul {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	padding: 0;
+}
+
+.navbar ul li {
+	margin-bottom: 10px;
+	width: 200px;
+}
+
+.navbar ul li a {
+	text-decoration: none;
+	color: #333;
+	font-weight: 500;
+	padding: 10px;
+	width: 100%; /* ให้เมนูทุกอันมีความกว้างเต็ม 100% ของ navbar */
+	box-sizing: border-box; /* รวม padding ในการคำนวณขนาด */
+	display: block;
+	text-align: center; /* จัดตำแหน่งตัวหนังสือให้อยู่ตรงกลาง */
+	border-radius: 5px;
+}
+
+.navbar ul li a.active-link {
+	font-weight: bold;
+	color: #ffffff;
+	background-color: #48af44;
+}
+.navbar ul li a.active-link:hover {
+	font-weight: bold;
+	color: #ffffff;
+	background-color: #48af44;
+}
+
+.navbar ul li a:hover {
+	background-color: #f0f0f0;
+	color: #48af44;
+}
+
+.container-logo-inet {
+	display: flex;
+	justify-content: center;
+  margin-bottom: 2.5rem;
+  user-select: none;
+
+}

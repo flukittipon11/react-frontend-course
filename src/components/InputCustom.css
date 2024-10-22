@@ -1,0 +1,20 @@
+.input {
+	display: inline-block;
+	padding: 10px 16px 10px 12px;
+	width: auto; /* เปลี่ยนจาก 100% เพื่อให้ไม่ขยายเต็ม */
+	flex: 1; /* ทำให้ขนาดยืดหยุ่น */
+	line-height: 30px;
+	height: 35px;
+	border: 1px solid #dddbda;
+	border-radius: 4px;
+	background-color: #fff;
+	color: rgb(8, 7, 7);
+	transition: border 0.1s linear, background-color 0.1s linear;
+	box-sizing: border-box; /* ป้องกัน padding และ border ทำให้ขนาดใหญ่เกิน */
+}
+
+.input:focus {
+	border-color: #1b96ff;
+	color: var(--sds-c-input-text-color-focus);
+	box-shadow: rgb(1, 118, 211) 0px 0px 3px 0px;
+}
