@@ -1,11 +1,21 @@
+// นำเข้า React และ hook ที่จำเป็น
 import React, { useState, useEffect } from "react";
+
+// นำเข้าฟังก์ชัน API ที่ใช้จัดการสินค้าต่าง ๆ
 import { fetchProducts, addProduct, deleteProduct, updateProduct } from "../api";
+
+// นำเข้าไฟล์ CSS สำหรับหน้า Workshop2
 import "./Workshop2.css";
+
+// นำเข้า component ที่ใช้ปรับแต่ง Input และแสดงโหลดเดอร์
 import InputCustom from "../components/InputCustom";
 import LoaderOverlay from "../components/LoaderOverlay";
 
 const Workshop2 = () => {
+	// สร้าง state สำหรับเก็บข้อมูลสินค้า
 	const [products, setProducts] = useState([]);
+
+	// สร้าง state สำหรับเก็บข้อมูลสินค้าใหม่ที่กรอกในฟอร์ม
 	const [newProduct, setNewProduct] = useState({
 		title: "",
 		price: "",
@@ -13,20 +23,26 @@ const Workshop2 = () => {
 		image: "",
 		category: "",
 	});
+
+	// สร้าง state สำหรับจัดการโหมดแก้ไขและไอดีของสินค้าที่กำลังแก้ไข
 	const [editMode, setEditMode] = useState(false);
 	const [editingProductId, setEditingProductId] = useState(null);
+
+	// สร้าง state สำหรับแสดงโหลดเดอร์
 	const [loading, setLoading] = useState(false);
 
+	// ฟังก์ชัน useEffect เพื่อโหลดรายการสินค้าครั้งแรก
 	useEffect(() => {
 		const loadProducts = async () => {
-			setLoading(true);
+			setLoading(true); // เปิดแสดงโหลดเดอร์
 			const data = await fetchProducts().finally(() => setLoading(false));
 			console.log(data);
-			setProducts(data);
+			setProducts(data); // เก็บข้อมูลสินค้าที่ดึงมาได้ใน state
 		};
 		loadProducts();
 	}, []);
 
+	// ฟังก์ชันจัดการเมื่อมีการเปลี่ยนแปลงข้อมูลในฟอร์ม
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
 		setNewProduct({
@@ -35,19 +51,21 @@ const Workshop2 = () => {
 		});
 	};
 
+	// ฟังก์ชันเพิ่มสินค้าใหม่
 	const handleAddProduct = async () => {
 		setLoading(true);
 		const addedProduct = await addProduct({
 			...newProduct,
-			image: newProduct.image || "https://fakeimg.pl/350x200/?text=World&font=lobster",
+			image: newProduct.image || "https://fakeimg.pl/350x200/?text=World&font=lobster", // ตั้งค่า default รูปภาพหากไม่มี
 		}).finally(() => setLoading(false));
-		setProducts([...products, addedProduct]);
-		setNewProduct({ title: "", price: "", description: "", image: "", category: "" });
+		setProducts([...products, addedProduct]); // เพิ่มสินค้าใหม่ลงในรายการ
+		setNewProduct({ title: "", price: "", description: "", image: "", category: "" }); // รีเซ็ตฟอร์ม
 	};
 
+	// ฟังก์ชันเปิดโหมดแก้ไขข้อมูลสินค้า
 	const handleEditProduct = (product) => {
-		setEditMode(true);
-		setEditingProductId(product.id);
+		setEditMode(true); // เปิดโหมดแก้ไข
+		setEditingProductId(product.id); // เก็บไอดีสินค้าที่ต้องการแก้ไข
 		setNewProduct({
 			title: product.title,
 			price: product.price,
@@ -57,25 +75,28 @@ const Workshop2 = () => {
 		});
 	};
 
+	// ฟังก์ชันอัปเดตข้อมูลสินค้า
 	const handleUpdateProduct = async () => {
 		setLoading(true);
 		const updatedProduct = await updateProduct(editingProductId, newProduct).finally(() => setLoading(false));
-		setProducts(products.map((product) => (product.id === editingProductId ? updatedProduct : product)));
-		setEditMode(false);
-		setNewProduct({ title: "", price: "", description: "", image: "", category: "" });
-		setEditingProductId(null);
+		setProducts(products.map((product) => (product.id === editingProductId ? updatedProduct : product))); // อัปเดตรายการสินค้า
+		setEditMode(false); // ปิดโหมดแก้ไข
+		setNewProduct({ title: "", price: "", description: "", image: "", category: "" }); // รีเซ็ตฟอร์ม
+		setEditingProductId(null); // ล้างค่าไอดีสินค้าที่แก้ไข
 	};
 
+	// ฟังก์ชันลบสินค้า
 	const handleDeleteProduct = async (id) => {
 		setLoading(true);
 		await deleteProduct(id).finally(() => setLoading(false));
-		setProducts(products.filter((product) => product.id !== id));
+		setProducts(products.filter((product) => product.id !== id)); // ลบสินค้าที่มีไอดีตรงกันออกจากรายการ
 	};
 
 	return (
 		<div style={{ overflow: "scroll" }}>
-			<LoaderOverlay loading={loading} />
+			<LoaderOverlay loading={loading} /> {/* แสดงโหลดเดอร์เมื่อ loading เป็น true */}
 			<h1>Workshop 2 - Product Management</h1>
+			{/* ส่วนเพิ่มสินค้าใหม่หรือแก้ไข */}
 			<div
 				style={{
 					border: "1px solid #e6e6e6",
@@ -89,6 +110,7 @@ const Workshop2 = () => {
 				<h2>{editMode ? "แก้ไขรายการสินค้า" : `เพิ่มรายการสินค้า`}</h2>
 				<div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
 					<div style={{ width: "100%", display: "flex", gap: "10px" }}>
+						{/* InputCustom สำหรับกรอกข้อมูลสินค้า */}
 						<InputCustom
 							type="text"
 							className="input"
@@ -128,6 +150,7 @@ const Workshop2 = () => {
 							borderRadius: "8px",
 						}}
 					>
+						{/* InputCustom สำหรับกรอกคำอธิบายและ URL รูปภาพ */}
 						<InputCustom
 							type="text"
 							className="input"
@@ -149,27 +172,30 @@ const Workshop2 = () => {
 					</div>
 				</div>
 
+				{/* ปุ่มเพิ่มหรือแก้ไขสินค้า */}
 				<div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
 					<button className="button-3" onClick={editMode ? handleUpdateProduct : handleAddProduct}>
 						{editMode ? "แก้ไขสินค้า" : `เพิ่มสินค้า`}
 					</button>
 				</div>
 			</div>
-
+			{/* ส่วนแสดงรายการสินค้า */}
 			<h2>รายการสินค้า</h2>
 			<div className="product-list">
 				{products.map((product) => (
 					<div className="product-card">
+						{/* แสดงรูปภาพสินค้า */}
 						<div className="product-image-container">
 							<img
 								src={product.image}
 								alt="example"
 								className="product-image"
-								onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-								onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+								onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")} // ขยายรูปเมื่อเลื่อนเมาส์
+								onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")} // ย่อรูปกลับเมื่อออกจากรูป
 							/>
 						</div>
 
+						{/* รายละเอียดสินค้า */}
 						<div className="product-details">
 							<div className="product-header">
 								<span className="product-title ellipsis-2">{product.title}</span>
@@ -177,14 +203,17 @@ const Workshop2 = () => {
 							<span className="product-category">Category: {product.category}</span>
 						</div>
 
+						{/* คำอธิบายสินค้า */}
 						<div className="product-description ellipsis">{product.description}</div>
 
+						{/* ส่วนราคาและการกระทำเพิ่มเติม */}
 						<div className="product-footer">
 							<div className="product-price-container">
 								<span className="product-total-label">Total price:</span>
 								<span className="product-price">$ {product.price}</span>
 							</div>
 
+							{/* ปุ่มแก้ไขและลบสินค้า */}
 							<div className="product-actions">
 								<button className="button-3" onClick={() => handleEditProduct(product)}>
 									แก้ไข
@@ -195,101 +224,6 @@ const Workshop2 = () => {
 							</div>
 						</div>
 					</div>
-
-					// <div
-					// 	style={{
-					// 		padding: "16px",
-					// 		display: "flex",
-					// 		flexDirection: "column",
-					// 		border: "1px solid #cdd7e1",
-					// 		gap: "0.75rem 1rem",
-					// 		borderRadius: "8px",
-					// 		background: "#fbfcfe",
-					// 		justifyContent: "space-between",
-					// 	}}
-					// >
-					// 	<div
-					// 		style={{
-					// 			width: "100%",
-					// 			height: "150px",
-					// 			overflow: "hidden",
-					// 			borderRadius: "10px",
-					// 			background: "#fff",
-					// 			border: "1px solid #cdd7e1",
-					// 		}}
-					// 	>
-					// 		<img
-					// 			src={product.image}
-					// 			alt="example"
-					// 			style={{
-					// 				width: "100%",
-					// 				height: "100%",
-					// 				objectFit: "contain",
-					// 				transition: "transform 0.3s ease",
-					// 			}}
-					// 			onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-					// 			onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-					// 		/>
-					// 	</div>
-					// 	<div>
-					// 		<div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-					// 			<span className="ellipsis-2" style={{ fontSize: "18px", fontWeight: 500 }}>
-					// 				{product.title}
-					// 			</span>
-					// 		</div>
-					// 		<span style={{ fontSize: "14px", color: "#555e68", fontWeight: 400 }}>
-					// 			Category: {product.category}
-					// 		</span>
-					// 	</div>
-
-					// 	<div
-					// 		className="ellipsis"
-					// 		style={{ fontSize: "14px", fontWeight: 400, color: "#555e68", textIndent: "20px" }}
-					// 	>
-					// 		{product.description}
-					// 	</div>
-					// 	<div
-					// 		style={{
-					// 			display: "flex",
-					// 			flexDirection: "row",
-					// 			alignItems: "center",
-					// 			justifyContent: "space-between",
-					// 		}}
-					// 	>
-					// 		<div style={{ display: "flex", flexDirection: "column" }}>
-					// 			<span style={{ fontSize: "14px", color: "#555e68", fontWeight: 400 }}>
-					// 				Total price:
-					// 			</span>
-					// 			<span style={{ fontSize: "20px", color: "#2ea44f", fontWeight: 500 }}>
-					// 				$ {product.price}
-					// 			</span>
-					// 		</div>
-					// 		<div
-					// 			style={{
-					// 				display: "flex",
-					// 				flexDirection: "row",
-					// 				gap: "5px",
-					// 				justifyContent: "center",
-					// 				alignItems: "center",
-					// 			}}
-					// 		>
-					// 			<button className="button-3" onClick={() => handleEditProduct(product)}>
-					// 				แก้ไข
-					// 			</button>
-
-					// 			<div
-					// 				style={{ width: "30px", height: "30px", cursor: "pointer" }}
-					// 				onClick={() => handleDeleteProduct(product.id)}
-					// 			>
-					// 				<img
-					// 					style={{ width: "100%", height: "100%", objectFit: "cover" }}
-					// 					src="/images/delete.png"
-					// 					alt="icon delete"
-					// 				/>
-					// 			</div>
-					// 		</div>
-					// 	</div>
-					// </div>
 				))}
 			</div>
 		</div>
