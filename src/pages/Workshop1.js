@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-
-const Workshop1 = () => {
-	return <div>**รอเอามาลง</div>;
-};
-
-export default Workshop1;
-=======
 import React, { useState } from "react";
 import "./Workshop1.css"; // นำเข้าไฟล์ CSS สำหรับการจัดรูปแบบ
 import CourseDescription from "../components/CourseDescription";
@@ -180,4 +171,3 @@ function Workshop1() {
 }
 
 export default Workshop1; // ส่งออกฟังก์ชัน Workshop1
->>>>>>> dev
