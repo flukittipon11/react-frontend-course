@@ -117,3 +117,36 @@
 }
 /*  */
 
+.course-description {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #cdd7e1;
+	padding: 15px;
+	border-radius: 8px;
+}
+
+.course-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.course-title {
+	font-size: 28px;
+	font-weight: 500;
+	margin: 10px;
+}
+
+.course-text {
+	font-size: 18px;
+	font-weight: 400;
+	text-indent: 50px;
+}
+
+.download-link {
+	cursor: pointer;
+	color: #48af44;
+	font-weight: 500;
+	padding: 5px;
+}
+
+

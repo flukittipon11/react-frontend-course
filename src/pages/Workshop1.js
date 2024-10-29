@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Workshop1.css"; // นำเข้าไฟล์ CSS สำหรับการจัดรูปแบบ
+import CourseDescription from "../components/CourseDescription";
 
 // ฟังก์ชันแสดงตารางสูตรคูณ
 function MultiplicationTable({ number }) {
@@ -74,6 +75,7 @@ function Workshop1() {
 
 	return (
 		<div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+			<CourseDescription />
 			<h1>Workshop 1 - Basic JavaScript</h1> {/* หัวข้อหลักของ Workshop */}
 			<div style={{ padding: "15px" }}>
 				{/* กำหนด layout ของ Workshop */}
@@ -133,7 +135,7 @@ function Workshop1() {
 								<span>WorkShop 4</span>
 								<div className="inner-box">
 									<div className="flex-column">
-										<span>ตรวจสอบเลขคู่หรือคี่</span>
+										<span>คำนวณเกรดเฉลี่ย</span>
 										<input
 											className="input"
 											type="number"
@@ -150,14 +152,14 @@ function Workshop1() {
 							</div>
 						</div>
 					</div>
-					{/* Workshop 4 - รายชื่อผู้ใช้ */}
+					{/* Workshop 5 - รายชื่อผู้ใช้ */}
 					<div className="workshop-container-workshop-4">
 						<div className="flex-column">
-							<span>WorkShop 4</span>
+							<span>WorkShop 5</span>
 							<div className="inner-box">
 								<div className="flex-column">
-									<span>รายชื่อผู้ใช้</span>
-									<Users /> {/* แสดงผลข้อมูลผู้ใช้ */}
+									<span>แสดงข้อมูลรายชื่อ</span>
+									<Users /> {/* แสดงข้อมูลรายชื่อ */}
 								</div>
 							</div>
 						</div>
