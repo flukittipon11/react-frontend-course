@@ -1,0 +1,152 @@
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 15px;
+	padding: 15px;
+}
+
+.box {
+	padding: 10px;
+	border: 1px solid #cdd7e1;
+	border-radius: 8px;
+	background-color: #f9f9f9;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Main container */
+.workshop-container {
+    border: 1px solid #cdd7e1;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* Inner container */
+.workshop-inner-container {
+    border: 1px solid #cdd7e1;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+/* Flex column for input label and input field */
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style for input field */
+.input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* Flex column container with gap */
+.flex-column-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Main content box */
+.content-box {
+    border: 1px solid #cdd7e1;
+    padding: 15px;
+    border-radius: 8px;
+    height: 100%;
+}
+
+/* Inner content area */
+.inner-box {
+    border: 1px solid #cdd7e1;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+/* Styled box for SortNumber and EvenOdd components */
+.styled-box {
+    margin: 10px;
+    background: #fff;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 8px;
+}
+
+/* Workshop container */
+.workshop-container-workshop-4 {
+    border: 1px solid #cdd7e1;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Inner content box */
+.inner-box {
+    border: 1px solid #cdd7e1;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+/* Styled input field */
+.input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* Styled output box */
+.output-box {
+    margin: 10px;
+    background: #fff;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 8px;
+}
+
+/* Inner content box */
+.inner-box {
+    border: 1px solid #cdd7e1;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px;
+}
+/*  */
+
+.course-description {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #cdd7e1;
+	padding: 15px;
+	border-radius: 8px;
+}
+
+.course-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.course-title {
+	font-size: 28px;
+	font-weight: 500;
+	margin: 10px;
+}
+
+.course-text {
+	font-size: 18px;
+	font-weight: 400;
+	text-indent: 50px;
+}
+
+.download-link {
+	cursor: pointer;
+	color: #48af44;
+	font-weight: 500;
+	padding: 5px;
+}
+
+
