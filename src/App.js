@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 // นำเข้า component ที่กำหนดเองสำหรับแอป
 import Navbar from "./components/Navbar"; // Component สำหรับแถบนำทาง (Navbar) ของแอป
 import Workshop1 from "./pages/Workshop1"; // Component หน้า Workshop 1
-import Workshop2 from "./pages/Workshop2"; // Component หน้า Workshop 2
 
 const App = () => {
 	return (
@@ -23,7 +22,6 @@ const App = () => {
 						<Route path="/" element={<Navigate to="/workshop1" replace />} />
 						{/* เมื่อเข้าหน้าแรกให้ redirect ไปที่ Workshop1 */}
 						<Route path="/workshop1" element={<Workshop1 />} /> {/* เส้นทางไปยังหน้า Workshop1 */}
-						<Route path="/workshop2" element={<Workshop2 />} /> {/* เส้นทางไปยังหน้า Workshop2 */}
 					</Routes>
 				</div>
 			</div>

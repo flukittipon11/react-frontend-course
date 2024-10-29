@@ -25,12 +25,6 @@ const Navbar = () => {
 						Workshop 1
 					</NavLink>
 				</li>
-				<li>
-					{/* NavLink สำหรับ Workshop 2 */}
-					<NavLink to="/workshop2" className={({ isActive }) => (isActive ? "active-link" : "")}>
-						Workshop 2
-					</NavLink>
-				</li>
 			</ul>
 		</nav>
 	);
