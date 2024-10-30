@@ -148,9 +148,9 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
 
 ## ฟังก์ชัน API
 
-1. **ดึงข้อมูลสินค้า**:
+1.  **ดึงข้อมูลสินค้า**:
 
-    - กำหนดฟังก์ชัน `fetchProducts` ในไฟล์ `src/api.js`:
+    -   กำหนดฟังก์ชัน `fetchProducts` ในไฟล์ `src/api.js`:
         ```javascript
         export const fetchProducts = async () => {
         	try {
@@ -163,22 +163,24 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         };
         ```
 
-2. **ใช้ State และ Effect เพื่อดึงข้อมูล**:
+2.  **ใช้ State และ Effect เพื่อดึงข้อมูล**:
 
-    - ตั้งค่า `useState` และ `useEffect` ใน component ของคุณ:
+    -   ตั้งค่า `useState` และ `useEffect` ใน component ของคุณ:
 
-        ```javascript
-        const [products, setProducts] = useState([]);
+    ````javascript
+    const [products, setProducts] = useState([]);
 
-        useEffect(() => {
-        	const loadProducts = async () => {
-        		const data = await fetchProducts();
-        		console.log(data);
-        		setProducts(data);
-        	};
-        	loadProducts();
-        }, []);
-        ```
+    useEffect(() => {
+      const loadProducts = async () => {
+      setLoading(true); // เปิดแสดงโหลดเดอร์
+      const data = await fetchProducts().finally(() => setLoading(false));
+      console.log(data);
+      setProducts(data); // เก็บข้อมูลสินค้าที่ดึงมาได้ใน state
+      };
+      loadProducts();
+     }, []);
+     ```
+    ````
 
 ## การแสดงผลสินค้าและการจัดการสินค้า
 
@@ -246,9 +248,13 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         };
 
         const handleAddProduct = async () => {
-        	const addedProduct = await addProduct(newProduct);
-        	setProducts([...products, addedProduct]);
-        	setNewProduct({ title: "", price: "", description: "", image: "", category: "" });
+        	setLoading(true);
+        	const addedProduct = await addProduct({
+        		...newProduct,
+        		image: newProduct.image || "https://fakeimg.pl/350x200/?text=World&font=lobster", // ตั้งค่า default รูปภาพหากไม่มี
+        	}).finally(() => setLoading(false));
+        	setProducts([...products, addedProduct]); // เพิ่มสินค้าใหม่ลงในรายการ
+        	setNewProduct({ title: "", price: "", description: "", image: "", category: "" }); // รีเซ็ตฟอร์ม
         };
         ```
 
@@ -282,10 +288,12 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         };
 
         const handleUpdateProduct = async () => {
-        	const updatedProduct = await updateProduct(editingProductId, newProduct);
-        	setProducts(products.map((product) => (product.id === editingProductId ? updatedProduct : product)));
-        	setEditMode(false);
-        	setNewProduct({ title: "", price: "", description: "", image: "", category: "" });
+        	setLoading(true);
+        	const updatedProduct = await updateProduct(editingProductId, newProduct).finally(() => setLoading(false));
+        	setProducts(products.map((product) => (product.id === editingProductId ? updatedProduct : product))); // อัปเดตรายการสินค้า
+        	setEditMode(false); // ปิดโหมดแก้ไข
+        	setNewProduct({ title: "", price: "", description: "", image: "", category: "" }); // รีเซ็ตฟอร์ม
+        	setEditingProductId(null); // ล้างค่าไอดีสินค้าที่แก้ไข
         };
         ```
 
@@ -306,8 +314,9 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
     - จัดการการลบสินค้า:
         ```javascript
         const handleDeleteProduct = async (id) => {
-        	await deleteProduct(id);
-        	setProducts(products.filter((product) => product.id !== id));
+        	setLoading(true);
+        	await deleteProduct(id).finally(() => setLoading(false));
+        	setProducts(products.filter((product) => product.id !== id)); // ลบสินค้าที่มีไอดีตรงกันออกจากรายการ
         };
         ```
 
