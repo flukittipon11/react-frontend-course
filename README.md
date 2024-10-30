@@ -219,16 +219,6 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         					<span className="product-total-label">Total price:</span>
         					<span className="product-price">$ {product.price}</span>
         				</div>
-
-        				{/* ปุ่มแก้ไขและลบสินค้า */}
-        				<div className="product-actions">
-        					<button className="button-3" onClick={() => handleEditProduct(product)}>
-        						แก้ไข
-        					</button>
-        					<div className="delete-icon-container" onClick={() => handleDeleteProduct(product.id)}>
-        						<img className="delete-icon" src="/images/delete.png" alt="icon delete" />
-        					</div>
-        				</div>
         			</div>
         		</div>
         	));
