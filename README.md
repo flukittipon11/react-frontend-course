@@ -167,19 +167,19 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
 
     -   ตั้งค่า `useState` และ `useEffect` ใน component ของคุณ:
 
-    ````javascript
+    ```javascript
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-      const loadProducts = async () => {
-      setLoading(true); // เปิดแสดงโหลดเดอร์
-      const data = await fetchProducts().finally(() => setLoading(false));
-      console.log(data);
-      setProducts(data); // เก็บข้อมูลสินค้าที่ดึงมาได้ใน state
-      };
-      loadProducts();
-     }, []);
-    ````
+    	const loadProducts = async () => {
+    		setLoading(true); // เปิดแสดงโหลดเดอร์
+    		const data = await fetchProducts().finally(() => setLoading(false));
+    		console.log(data);
+    		setProducts(data); // เก็บข้อมูลสินค้าที่ดึงมาได้ใน state
+    	};
+    	loadProducts();
+    }, []);
+    ```
 
 ## การแสดงผลสินค้าและการจัดการสินค้า
 
@@ -341,19 +341,20 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         	setProducts(products.filter((product) => product.id !== id)); // ลบสินค้าที่มีไอดีตรงกันออกจากรายการ
         };
         ```
+
 5. **สร้างปุ่มสำหรับการแก้ไข และการลบรายการสินค้า**:
 
     - ตัวอย่าง UI สำหรับการเพิ่มปุ่มลบหรือแก้ไขสินค้า:
-	
+
         ```javascript
         <div className="product-actions">
-						<button className="button-3" onClick={() => handleEditProduct(product)}>
-							แก้ไข
-						</button>
-					<div className="delete-icon-container" onClick={() => handleDeleteProduct(product.id)}>
-							<img className="delete-icon" src="/images/delete.png" alt="icon delete" />
-					</div>
-			</div>
+        	<button className="button-3" onClick={() => handleEditProduct(product)}>
+        		แก้ไข
+        	</button>
+        	<div className="delete-icon-container" onClick={() => handleDeleteProduct(product.id)}>
+        		<img className="delete-icon" src="/images/delete.png" alt="icon delete" />
+        	</div>
+        </div>
         ```
 
 6. **การจัดการ UI การเพิ่มและแก้ไขสินค้า**:
