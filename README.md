@@ -426,6 +426,12 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         			/>
         		</div>
         	</div>
+        	{/* ปุ่มเพิ่มหรือแก้ไขสินค้า */}
+        	<div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
+        		<button className="button-3" onClick={editMode ? handleUpdateProduct : handleAddProduct}>
+        			{editMode ? "แก้ไขสินค้า" : `เพิ่มสินค้า`}
+        		</button>
+        	</div>
         </div>
         ```
 
