@@ -2,7 +2,7 @@ import React from "react";
 
 const CourseDescription = () => {
 	const navigate = () => {
-		window.open("https://www.w3schools.com");
+		window.open("https://github.com/flukittipon11/react-frontend-course");
 	};
 	return (
 		<div className="course-description">
@@ -18,7 +18,7 @@ const CourseDescription = () => {
 					ดาวน์โหลดไฟล์สำหรับเตรียมความพร้อม เพื่อใช้ใน Workshop 2 ได้ที่
 				</span>
 				<div className="download-link" onClick={navigate}>
-					เอกสารประกอบการสอน (กรุณาคลิกที่นี่เพื่อดาวน์โหลดไฟล์)
+					เอกสารประกอบการสอน
 				</div>
 			</div>
 		</div>
