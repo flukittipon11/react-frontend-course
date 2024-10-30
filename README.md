@@ -341,8 +341,21 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         	setProducts(products.filter((product) => product.id !== id)); // ลบสินค้าที่มีไอดีตรงกันออกจากรายการ
         };
         ```
+		
+5. **สร้างปุ่มสำหรับการแก้ไข และการลบรายการสินค้า**:
+		```javascript
+			<div className="product-actions">
+						<button className="button-3" onClick={() => handleEditProduct(product)}>
+							แก้ไข
+						</button>
+					<div className="delete-icon-container" onClick={() => handleDeleteProduct(product.id)}>
+							<img className="delete-icon" src="/images/delete.png" alt="icon delete" />
+					</div>
+			</div>
+    	```
 
-5. **การจัดการ UI การเพิ่มและแก้ไขสินค้า**:
+
+6. **การจัดการ UI การเพิ่มและแก้ไขสินค้า**:
 
     - ตัวอย่าง UI สำหรับการเพิ่มหรือแก้ไขสินค้า:
 
@@ -420,13 +433,6 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         				label="Product Image URL"
         			/>
         		</div>
-        	</div>
-
-        	{/* ปุ่มเพิ่มหรือแก้ไขสินค้า */}
-        	<div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
-        		<button className="button-3" onClick={editMode ? handleUpdateProduct : handleAddProduct}>
-        			{editMode ? "แก้ไขสินค้า" : `เพิ่มสินค้า`}
-        		</button>
         	</div>
         </div>
         ```
