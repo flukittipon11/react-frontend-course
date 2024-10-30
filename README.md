@@ -187,26 +187,49 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
 1. **แสดงผลสินค้า**:
 
     - เรนเดอร์รายการสินค้า:
+
         ```javascript
         {
         	products.map((product) => (
         		<div className="product-card">
+        			{/* แสดงรูปภาพสินค้า */}
         			<div className="product-image-container">
         				<img
         					src={product.image}
         					alt="example"
         					className="product-image"
-        					onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-        					onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+        					onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")} // ขยายรูปเมื่อเลื่อนเมาส์
+        					onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")} // ย่อรูปกลับเมื่อออกจากรูป
         				/>
         			</div>
+
+        			{/* รายละเอียดสินค้า */}
         			<div className="product-details">
-        				<span className="product-title">{product.title}</span>
+        				<div className="product-header">
+        					<span className="product-title ellipsis-2">{product.title}</span>
+        				</div>
         				<span className="product-category">Category: {product.category}</span>
         			</div>
-        			<div className="product-description">{product.description}</div>
+
+        			{/* คำอธิบายสินค้า */}
+        			<div className="product-description ellipsis">{product.description}</div>
+
+        			{/* ส่วนราคาและการกระทำเพิ่มเติม */}
         			<div className="product-footer">
-        				<span className="product-price">$ {product.price}</span>
+        				<div className="product-price-container">
+        					<span className="product-total-label">Total price:</span>
+        					<span className="product-price">$ {product.price}</span>
+        				</div>
+
+        				{/* ปุ่มแก้ไขและลบสินค้า */}
+        				<div className="product-actions">
+        					<button className="button-3" onClick={() => handleEditProduct(product)}>
+        						แก้ไข
+        					</button>
+        					<div className="delete-icon-container" onClick={() => handleDeleteProduct(product.id)}>
+        						<img className="delete-icon" src="/images/delete.png" alt="icon delete" />
+        					</div>
+        				</div>
         			</div>
         		</div>
         	));
