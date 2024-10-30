@@ -312,27 +312,91 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
         ```
 
 5. **การจัดการ UI การเพิ่มและแก้ไขสินค้า**:
+
     - ตัวอย่าง UI สำหรับการเพิ่มหรือแก้ไขสินค้า:
+
         ```javascript
-        <div>
-        	<h2>{editMode ? "Edit Product" : "Add Product"}</h2>
-        	<input
-        		type="text"
-        		name="title"
-        		value={newProduct.title}
-        		onChange={handleInputChange}
-        		placeholder="Product Title"
-        	/>
-        	<input
-        		type="text"
-        		name="category"
-        		value={newProduct.category}
-        		onChange={handleInputChange}
-        		placeholder="Category"
-        	/>
-        	<button onClick={editMode ? handleUpdateProduct : handleAddProduct}>
-        		{editMode ? "Update Product" : "Add Product"}
-        	</button>
+        <div
+        	style={{
+        		border: "1px solid #e6e6e6",
+        		display: "flex",
+        		flexDirection: "column",
+        		padding: "15px",
+        		borderRadius: "5px",
+        		flexWrap: "wrap",
+        	}}
+        >
+        	<h2>{editMode ? "แก้ไขรายการสินค้า" : `เพิ่มรายการสินค้า`}</h2>
+        	<div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+        		<div style={{ width: "100%", display: "flex", gap: "10px" }}>
+        			{/* InputCustom สำหรับกรอกข้อมูลสินค้า */}
+        			<InputCustom
+        				type="text"
+        				className="input"
+        				name="title"
+        				value={newProduct.title}
+        				onChange={handleInputChange}
+        				placeholder="กรอกข้อมูล Product Title"
+        				label="Product Title"
+        			/>
+        			<InputCustom
+        				type="text"
+        				className="input"
+        				name="category"
+        				value={newProduct.category}
+        				onChange={handleInputChange}
+        				placeholder="กรอกข้อมูล Product Category"
+        				label="Product Category"
+        			/>
+        			<InputCustom
+        				type="text"
+        				className="input"
+        				name="price"
+        				value={newProduct.price}
+        				onChange={handleInputChange}
+        				placeholder="กรอกข้อมูล Product Price"
+        				label="Product Price"
+        			/>
+        		</div>
+        		<div
+        			style={{
+        				width: "100%",
+        				display: "flex",
+        				gap: "10px",
+        				padding: "20px",
+        				border: "1px solid rgb(205, 215, 225)",
+        				background: "rgb(251, 252, 254)",
+        				borderRadius: "8px",
+        			}}
+        		>
+        			{/* InputCustom สำหรับกรอกคำอธิบายและ URL รูปภาพ */}
+        			<InputCustom
+        				type="text"
+        				className="input"
+        				name="description"
+        				value={newProduct.description}
+        				onChange={handleInputChange}
+        				placeholder="กรอกข้อมูล Product Description"
+        				label="Product Description"
+        			/>
+        			<InputCustom
+        				type="text"
+        				className="input"
+        				name="image"
+        				value={newProduct.image}
+        				onChange={handleInputChange}
+        				placeholder="กรอกข้อมูล Product Image URL"
+        				label="Product Image URL"
+        			/>
+        		</div>
+        	</div>
+
+        	{/* ปุ่มเพิ่มหรือแก้ไขสินค้า */}
+        	<div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
+        		<button className="button-3" onClick={editMode ? handleUpdateProduct : handleAddProduct}>
+        			{editMode ? "แก้ไขสินค้า" : `เพิ่มสินค้า`}
+        		</button>
+        	</div>
         </div>
         ```
 
