@@ -13,6 +13,7 @@
   - [Props และ State](#props-และ-state)
   - [Hooks](#hooks)
 - [แหล่งข้อมูลเพิ่มเติม](#แหล่งข้อมูลเพิ่มเติม)
+- [แบบทดสอบ:เริ่มต้นการใช้งาน React javascript](#แบบทดสอบที่สอง)
 
 ---
 
@@ -86,4 +87,201 @@ Hooks เป็นฟีเจอร์ที่ให้ใช้ state แล�
 - [React Community (ชุมชน React)](https://reactjs.org/community/support.html): แหล่งข้อมูลและการสนับสนุนจากชุมชน React เช่น ฟอรัมและแหล่งข้อมูลอื่น ๆ 
 
 ---
+
+## แบบทดสอบที่สอง
+# Workshop 2: React.js
+
+โปรเจคนี้เป็นตัวอย่างการสร้างเว็บแอปพลิเคชันที่เกี่ยวข้องกับการจัดการสินค้าบนหน้าเว็บ โดยมีฟังก์ชันการเพิ่ม แก้ไข และลบสินค้า พร้อมการดึงข้อมูลผ่าน API โดยใช้ React.js และ Axios
+
+## การตั้งค่าโปรเจค
+
+1. **โคลนโปรเจค** จาก GitHub
+2. **เปิดโฟลเดอร์โปรเจค** ใน VS Code
+3. **ติดตั้ง Node Modules**:
+   - รันคำสั่งต่อไปนี้ใน terminal:
+     ```bash
+     npm install
+     ```
+   - เริ่มโปรเจคด้วยคำสั่ง:
+     ```bash
+     npm start
+     ```
+
+## การตั้งค่าเส้นทาง Route และเมนู Workshop2
+
+1. **สร้าง Route สำหรับ Workshop2**:
+   - เพิ่ม route ในไฟล์ `src/app.js`:
+     ```javascript
+     import Workshop2 from "./pages/Workshop2";
+
+     <Route path="/workshop2" element={<Workshop2 />} />
+     ```
+   
+2. **เพิ่มเมนูใน Navbar**:
+   - เพิ่มลิงก์ใน `Navbar.js`:
+     ```javascript
+     <li>
+       <NavLink to="/workshop2" className={({ isActive }) => (isActive ? "active-link" : "")}>
+           Workshop 2
+       </NavLink>
+     </li>
+     ```
+
+## ฟังก์ชัน API
+
+1. **ดึงข้อมูลสินค้า**:
+   - กำหนดฟังก์ชัน `fetchProducts` ในไฟล์ `src/api.js`:
+     ```javascript
+     export const fetchProducts = async () => {
+         try {
+             const response = await axios.get(BASE_URL);
+             return response.data;
+         } catch (error) {
+             console.error("Error fetching products:", error);
+             throw error;
+         }
+     };
+     ```
+
+2. **ใช้ State และ Effect เพื่อดึงข้อมูล**:
+   - ตั้งค่า `useState` และ `useEffect` ใน component ของคุณ:
+     ```javascript
+     const [products, setProducts] = useState([]);
+     
+     useEffect(() => {
+         const loadProducts = async () => {
+             const data = await fetchProducts();
+             console.log(data);
+             setProducts(data);
+         };
+         loadProducts();
+     }, []);
+     ```
+
+## การแสดงผลสินค้าและการจัดการสินค้า
+
+1. **แสดงผลสินค้า**:
+   - เรนเดอร์รายการสินค้า:
+     ```javascript
+     {products.map((product) => (
+         <div className="product-card">
+             <div className="product-image-container">
+                 <img
+                     src={product.image}
+                     alt="example"
+                     className="product-image"
+                     onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+                     onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                 />
+             </div>
+             <div className="product-details">
+                 <span className="product-title">{product.title}</span>
+                 <span className="product-category">Category: {product.category}</span>
+             </div>
+             <div className="product-description">{product.description}</div>
+             <div className="product-footer">
+                 <span className="product-price">$ {product.price}</span>
+             </div>
+         </div>
+     ))}
+     ```
+
+2. **เพิ่มสินค้าใหม่**:
+   - กำหนดสถานะสำหรับสินค้าตัวใหม่:
+     ```javascript
+     const [newProduct, setNewProduct] = useState({
+         title: "",
+         price: "",
+         description: "",
+         image: "",
+         category: ""
+     });
+     ```
+   - จัดการการเปลี่ยนแปลงข้อมูลและการเพิ่มสินค้า:
+     ```javascript
+     const handleInputChange = (e) => {
+         const { name, value } = e.target;
+         setNewProduct({ ...newProduct, [name]: value });
+     };
+
+     const handleAddProduct = async () => {
+         const addedProduct = await addProduct(newProduct);
+         setProducts([...products, addedProduct]);
+         setNewProduct({ title: "", price: "", description: "", image: "", category: "" });
+     };
+     ```
+
+3. **อัพเดตข้อมูลสินค้า**:
+   - กำหนดฟังก์ชัน `updateProduct` สำหรับอัพเดตสินค้า:
+     ```javascript
+     export const updateProduct = async (id, updatedProduct) => {
+         try {
+             const response = await axios.put(`${BASE_URL}/${id}`, updatedProduct);
+             return response.data;
+         } catch (error) {
+             console.error("Error updating product:", error);
+             throw error;
+         }
+     };
+     ```
+   - จัดการโหมดแก้ไขและการอัพเดตสินค้า:
+     ```javascript
+     const handleEditProduct = (product) => {
+         setEditMode(true);
+         setEditingProductId(product.id);
+         setNewProduct({
+             title: product.title,
+             price: product.price,
+             description: product.description,
+             image: product.image,
+             category: product.category
+         });
+     };
+
+     const handleUpdateProduct = async () => {
+         const updatedProduct = await updateProduct(editingProductId, newProduct);
+         setProducts(products.map((product) => (product.id === editingProductId ? updatedProduct : product)));
+         setEditMode(false);
+         setNewProduct({ title: "", price: "", description: "", image: "", category: "" });
+     };
+     ```
+
+4. **ลบสินค้า**:
+   - กำหนดฟังก์ชัน `deleteProduct` สำหรับลบสินค้า:
+     ```javascript
+     export const deleteProduct = async (id) => {
+         try {
+             const response = await axios.delete(`${BASE_URL}/${id}`);
+             return response.data;
+         } catch (error) {
+             console.error("Error deleting product:", error);
+             throw error;
+         }
+     };
+     ```
+   - จัดการการลบสินค้า:
+     ```javascript
+     const handleDeleteProduct = async (id) => {
+         await deleteProduct(id);
+         setProducts(products.filter((product) => product.id !== id));
+     };
+     ```
+
+5. **การจัดการ UI การเพิ่มและแก้ไขสินค้า**:
+   - ตัวอย่าง UI สำหรับการเพิ่มหรือแก้ไขสินค้า:
+     ```javascript
+     <div>
+         <h2>{editMode ? "Edit Product" : "Add Product"}</h2>
+         <input type="text" name="title" value={newProduct.title} onChange={handleInputChange} placeholder="Product Title" />
+         <input type="text" name="category" value={newProduct.category} onChange={handleInputChange} placeholder="Category" />
+         <button onClick={editMode ? handleUpdateProduct : handleAddProduct}>
+             {editMode ? "Update Product" : "Add Product"}
+         </button>
+     </div>
+     ```
+
+## หมายเหตุเพิ่มเติม
+
+- **แสดงหมวดหมู่สินค้า**: หมวดหมู่ของสินค้าแสดงอยู่บนการ์ดสินค้าโดยใช้ชื่อคลาสที่เหมาะสมและโครงสร้าง HTML ที่สอดคล้องกัน
+
 
