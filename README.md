@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/66fef6f0-9c0a-4280-a8e0-f7dfe1d82a8f)# โปรเจค React ของฉัน
+# โปรเจค React Javascript
 
 ## สารบัญ
 
